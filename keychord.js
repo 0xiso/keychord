@@ -68,7 +68,7 @@ function onMIDIReject(){
 }
 
 function hookUpMIDIInput(e) {
-  console.log(e);
+  // thanks to cwilso(https://github.com/cwilso/monosynth)
 
   let haveAtLeastOneDevice = false;
     let inputs = midiAccess.inputs.values();
@@ -88,18 +88,20 @@ function MIDIMessageEventHandler(event) {
       if (event.data[2] !== 0) {  // if velocity != 0, this is a note-on message
         keyboard[event.data[1]]++;
         skeyboard[event.data[1] % 12]++;
+        detectChord(skeyboard);
         break;
       }
       // if velocity == 0, fall thru: it's a note-off.  MIDI's weird, ya'll.
     case 0x80:
       keyboard[event.data[1]]--;
       skeyboard[event.data[1] % 12]--;
+      detectChord(skeyboard);
       break;
   }
-  detectChord(skeyboard);
 }
 
 function detectChord(skeyboard){
+  console.log('detectChord')
   let on = [];
   let candidates = [];
   let match = [];
