@@ -2,7 +2,7 @@ addEventListener('load', () => {
   if(!navigator.requestMIDIAccess){
     alert("unsupported browser");
   }
-  detectChord([0,0,0,0,0,0,0,0,0,0,0,0]);
+  detectChord([]);
   navigator.requestMIDIAccess().then(onMIDIInit, onMIDIReject);
 });
 
