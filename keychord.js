@@ -1,8 +1,11 @@
-if(!navigator.requestMIDIAccess){
-  alert("unsupported browser");
-}
+addEventListener('load', () => {
+  if(!navigator.requestMIDIAccess){
+    alert("unsupported browser");
+  }
+  detectChord([0,0,0,0,0,0,0,0,0,0,0,0]);
+  navigator.requestMIDIAccess().then(onMIDIInit, onMIDIReject);
+});
 
-navigator.requestMIDIAccess().then(onMIDIInit, onMIDIReject);
 let midiAccess;
 
 let keyboard = [];
@@ -101,7 +104,6 @@ function MIDIMessageEventHandler(event) {
 }
 
 function detectChord(skeyboard){
-  console.log('detectChord')
   let on = [];
   let candidates = [];
   let match = [];
